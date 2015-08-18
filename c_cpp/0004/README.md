@@ -92,7 +92,7 @@ Complile success
 
 我们仅仅关注"NEEDED"，"RPATH"项。
 
-"NEEDED"表示依赖的库，注意"NEEDED"并不是libopensource.so.xxx.0这样的完整名字，而是libopensource.so.xxx（该名字是SONAME，我们在编译脚本指定，参考文献[2](http://bottomupcs.sourceforge.net/csbu/x4012.htm)中有介绍）。
+"NEEDED"表示依赖的库，注意"NEEDED"并不是libopensource.so.xxx.0这样的完整名字，而是libopensource.so.xxx（该名字是SONAME，我们在编译脚本指定，[参考文献 2](http://bottomupcs.sourceforge.net/csbu/x4012.htm)中有介绍）。
 
 "RPATH"表示查找依赖库会从这些列出的路径查找(另外有个环境变量LD_LIBARARY_PATH也是类似的作用)。
 
