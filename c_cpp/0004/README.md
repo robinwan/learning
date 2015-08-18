@@ -3,7 +3,7 @@
 ##1. 什么是菱形链接(diamond link)
 菱形链接(diamond link)能十分清楚的描述出我们要讨论的问题。
 
-![图1](https://raw.githubusercontent.com/lzueclipse/learning/master/c_cpp/0004/diamond_linking.jpg "图1")
+![图1](https://raw.githubusercontent.com/robinwan/learning/master/c_cpp/0004/diamond_linking.jpg "图1")
 
 如上图所示，我们的程序将要使用某厂家的共享库libvendor1.so，同时也要使用另外一个厂家的共享库libvendor2.so。
 
@@ -45,25 +45,25 @@ libvendor1.so会依赖./opensource_v1/libopensource.so.xxx, libvendor2.so会依�
 
 3)main.c有两种用法，一种"general"使用系统默认的加载共享库的方法，一种"dlopen"使用dlopen等API显式加载需要的共享库。
 
-[main.c](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/main.c)
+[main.c](https://github.com/robinwan/learning/blob/master/c_cpp/0004/main.c)
 
-[vendor1.c](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/vendor1.c)
+[vendor1.c](https://github.com/robinwan/learning/blob/master/c_cpp/0004/vendor1.c)
 
-[vendor2.c](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/vendor2.c)
+[vendor2.c](https://github.com/robinwan/learning/blob/master/c_cpp/0004/vendor2.c)
 
-[opensource_v1.c](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/opensource_v1.c)
+[opensource_v1.c](https://github.com/robinwan/learning/blob/master/c_cpp/0004/opensource_v1.c)
 
-[opensource_v2.c](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/opensource_v2.c)
+[opensource_v2.c](https://github.com/robinwan/learning/blob/master/c_cpp/0004/opensource_v2.c)
 
 用于控制编译的Shell脚本（每个使用一个脚本，为了便于说清）:
 
-[different_soname_without_default_symver.sh](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/different_soname_without_default_symver.sh)  
+[different_soname_without_default_symver.sh](https://github.com/robinwan/learning/blob/master/c_cpp/0004/different_soname_without_default_symver.sh)  
 
-[different_soname_with_default_symver.sh](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/different_soname_with_default_symver.sh)
+[different_soname_with_default_symver.sh](https://github.com/robinwan/learning/blob/master/c_cpp/0004/different_soname_with_default_symver.sh)
 
-[same_soname_without_default_symver.sh](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/same_soname_without_default_symver.sh)
+[same_soname_without_default_symver.sh](https://github.com/robinwan/learning/blob/master/c_cpp/0004/same_soname_without_default_symver.sh)
 
-[same_soname_with_default_symver.sh](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/same_soname_with_default_symver.sh)
+[same_soname_with_default_symver.sh](https://github.com/robinwan/learning/blob/master/c_cpp/0004/same_soname_with_default_symver.sh)
 
 
 ##3.libopensource.so.xxx的版本不相同，系统如何查找依赖库和绑定符号
@@ -75,7 +75,7 @@ libvendor1.so将依赖./opensource_v1/libopensource.so.1.0； libvendor2.so将�
 ###3.1 符号表不带版本信息的
 gcc编译的符号，默认是不带版本信息的。
 
-#####3.1.1 我们用[different_soname_without_default_symver.sh](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/different_soname_without_default_symver.sh) 来编译。
+#####3.1.1 我们用[different_soname_without_default_symver.sh](https://github.com/robinwan/learning/blob/master/c_cpp/0004/different_soname_without_default_symver.sh) 来编译。
 
 ```
 [root@node1 0004]# sh different_soname_without_default_symver.sh
@@ -86,7 +86,7 @@ Complile success
 
 我们把libopensource.so.1.0相应3个文件放在"./opensource_v1"目录，把libopensource.so.2.0相应3个文件放在"./opensource_v2"目录：
 
-![图2](https://raw.githubusercontent.com/lzueclipse/learning/master/c_cpp/0004/2.png "图2")
+![图2](https://raw.githubusercontent.com/robinwan/learning/master/c_cpp/0004/2.png "图2")
 
 #####3.1.3 用readelf查看编译生成的main，libvendor1.so，libvendor2.so
 
@@ -153,9 +153,9 @@ opensource v1 print, called by vendor 2
 
 首先看输出，从结果看，仅仅调用了./opensource_v1/libopensource.so.1(opensource_v1.c)里的"opensource_print函数"。
 
-完整的LD_DEBUG输出在[robin.1.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.1.txt)
+完整的LD_DEBUG输出在[robin.1.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.1.txt)
 
-我们来分析[robin.1.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.1.txt)输出：
+我们来分析[robin.1.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.1.txt)输出：
 
 58行到68行，./opensource_v1/libopensource.so.1被查找到；71行到81行，./opensource_v2/libopensource.so.2被找到：
 ```
@@ -227,9 +227,9 @@ opensource v1 print, called by vendor 2
 
 首先看输出，从结果看，仅仅调用了./opensource_v1/libopensource.so.1(opensource_v1.c)里的"opensource_print函数"。
 
-完整的LD_DEBUG输出在[robin.2.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.2.txt)
+完整的LD_DEBUG输出在[robin.2.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.2.txt)
 
-我们来分析[robin.2.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.2.txt)输出：
+我们来分析[robin.2.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.2.txt)输出：
 
 58行到68行，./opensource_v1/libopensource.so.1被查找到；71行到81行，./opensource_v2/libopensource.so.2被找到：
 ```
@@ -285,7 +285,7 @@ opensource v1 print, called by vendor 2
 
 **!!!!!!我们是有证据支持这个猜测的。**
 
-编辑[different_soname_without_default_symver.sh](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/different_soname_without_default_symver.sh)，仅仅改变"-lvendor2","-lvendor1"的顺序，让"-lvendor2"靠前，如下：
+编辑[different_soname_without_default_symver.sh](https://github.com/robinwan/learning/blob/master/c_cpp/0004/different_soname_without_default_symver.sh)，仅仅改变"-lvendor2","-lvendor1"的顺序，让"-lvendor2"靠前，如下：
 ```
 #main.c
 #gcc -Wl,-rpath=./ -o main  main.c -L. -lvendor1 -lvendor2 -ldl
@@ -319,14 +319,14 @@ opensource v2 print, called by vendor 1
 opensource v2 print, called by vendor 2
 ```
 
-**!!!!!!推论的延伸: 如果不使用libopensource.so.2这样和libopensource.so.1混淆的名字，而是使用一个其他的名字(例如librobin.so.2)，和本次测试是一样的结果(此处不在给出测试结果）。可以用[different_soname_without_default_symver_2.sh](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/different_soname_without_default_symver_2.sh) 来编译做实验**
+**!!!!!!推论的延伸: 如果不使用libopensource.so.2这样和libopensource.so.1混淆的名字，而是使用一个其他的名字(例如librobin.so.2)，和本次测试是一样的结果(此处不在给出测试结果）。可以用[different_soname_without_default_symver_2.sh](https://github.com/robinwan/learning/blob/master/c_cpp/0004/different_soname_without_default_symver_2.sh) 来编译做实验**
 
 
 
 ####3.2 符号表带版本信息的
 编译时指定"-Wl,--default-symver"，那么编译出的符号是带版本信息的。
 
-#####3.2.1 我们用[different_soname_with_default_symver.sh](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/different_soname_with_default_symver.sh) 来编译
+#####3.2.1 我们用[different_soname_with_default_symver.sh](https://github.com/robinwan/learning/blob/master/c_cpp/0004/different_soname_with_default_symver.sh) 来编译
 
 ```
 [root@node1 0004]# sh different_soname_with_default_symver.sh
@@ -395,9 +395,9 @@ opensource v2 print, called by vendor 2
 
 首先看输出，从结果看，libvendor1.so调用了./opensource_v1/libopensource.so.1里的"opensource_print"(opensource_v1.c)；libvendor2.so调用了./opensource_v2/libopensource.so.2里的"opensource_print"(opensource_v2.c)。
 
-完整的LD_DEBUG输出在[robin.3.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.3.txt)
+完整的LD_DEBUG输出在[robin.3.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.3.txt)
 
-我们来分析[robin.3.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.3.txt)输出：
+我们来分析[robin.3.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.3.txt)输出：
 
 58行到68行，./opensource_v1/libopensource.so.1被查找到；71行到81行，./opensource_v2/libopensource.so.2被查找到：
 ```
@@ -468,9 +468,9 @@ opensource v2 print, called by vendor 2
 
 首先看输出，从结果看，libvendor1.so调用了./opensource_v1/libopensource.so.1里的"opensource_print"(opensource_v1.c)；libvendor2.so调用了./opensource_v2/libopensource.so.2里的"opensource_print"(opensource_v2.c)。
 
-完整的LD_DEBUG输出在[robin.4.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.4.txt)
+完整的LD_DEBUG输出在[robin.4.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.4.txt)
 
-我们来分析[robin.4.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.4.txt)输出：
+我们来分析[robin.4.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.4.txt)输出：
 
 58行到68行，./opensource_v1/libopensource.so.1被查找到；71行到81行，./opensource_v2/libopensource.so.2被查找到：
 ```
@@ -534,7 +534,7 @@ libvendor1.so将依赖./opensource_v1/libopensource.so.1.0； libvendor2.so将�
 ###4.1 符号表不带版本信息的
 gcc编译的符号，默认是不带版本信息的。
 
-#####4.1.1 我们用[same_soname_without_default_symver.sh](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/same_soname_without_default_symver.sh) 来编译。
+#####4.1.1 我们用[same_soname_without_default_symver.sh](https://github.com/robinwan/learning/blob/master/c_cpp/0004/same_soname_without_default_symver.sh) 来编译。
 
 ```
 [root@node1 0004]# sh same_soname_without_default_symver.sh
@@ -547,7 +547,7 @@ libvendor1.so使用的libopensource.so.1.0相应3个文件放在"./opensource_v1
 
 libvendor2.so使用的libopensource.so.1.0相应3个文件放在"./opensource_v2"目录;
 
-![图3](https://raw.githubusercontent.com/lzueclipse/learning/master/c_cpp/0004/3.png "图3")
+![图3](https://raw.githubusercontent.com/robinwan/learning/master/c_cpp/0004/3.png "图3")
 
 #####4.1.3 用readelf查看编译生成的main，libvendor1.so，libvendor2.so
 ```
@@ -605,9 +605,9 @@ opensource v1 print, called by vendor 2
 
 首先看输出，从结果看，仅仅调用了./opensource_v1/libopensource.so.1(opensource_v1.c)里的"opensource_print函数"。
 
-完整的LD_DEBUG输出在[robin.5.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.5.txt)
+完整的LD_DEBUG输出在[robin.5.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.5.txt)
 
-我们来分析[robin.5.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.5.txt)输出：
+我们来分析[robin.5.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.5.txt)输出：
 
 58行到68行，./opensource_v1/libopensource.so.1被查找到；./opensource_v2/libopensource.so.1却**没有被查找**：
 ```
@@ -665,9 +665,9 @@ opensource v1 print, called by vendor 2
 
 首先看输出，从结果看，仅仅调用了./opensoure_v1/libopensource.so.1(opensource_v1.c)里的"opensource_print函数"。
 
-完整的LD_DEBUG输出在[robin.6.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.6.txt)
+完整的LD_DEBUG输出在[robin.6.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.6.txt)
 
-我们来分析[robin.6.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.6.txt)输出：
+我们来分析[robin.6.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.6.txt)输出：
 
 58行到68行，./opensource_v1/libopensource.so.1被查找到；./opensource_v2/libopensource.so.1**没有被查找**：
 ```
@@ -710,7 +710,7 @@ opensource v1 print, called by vendor 2
 
 **我们是有证据支持这个猜测的。**
 
-编辑[same_soname_without_default_symver.sh](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/same_soname_without_default_symver.sh)，仅仅改变"-lvendor2","-lvendor1"的顺序，让"-lvendor2"靠前，如下：
+编辑[same_soname_without_default_symver.sh](https://github.com/robinwan/learning/blob/master/c_cpp/0004/same_soname_without_default_symver.sh)，仅仅改变"-lvendor2","-lvendor1"的顺序，让"-lvendor2"靠前，如下：
 ```
 #main.c
 #gcc -Wl,-rpath=./ -o main  main.c -L. -lvendor1 -lvendor2 -ldl
@@ -747,7 +747,7 @@ opensource v2 print, called by vendor 2
 ####4.2 符号表带版本信息的
 编译时指定"-Wl,--default-symver"，那么编译出的符号是带版本信息的。
 
-#####4.2.1 我们用[same_soname_with_default_symver.sh](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/same_soname_with_default_symver.sh) 来编译
+#####4.2.1 我们用[same_soname_with_default_symver.sh](https://github.com/robinwan/learning/blob/master/c_cpp/0004/same_soname_with_default_symver.sh) 来编译
 
 ```
 [root@node1 0004]# sh same_soname_with_default_symver.sh
@@ -814,7 +814,7 @@ Dynamic section at offset 0xdc8 contains 29 entries:
 opensource v1 print, called by vendor 1
 opensource v1 print, called by vendor 2
 ```
-对应的完整的LD_DEBUG输出为[robin.7.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.7.txt)
+对应的完整的LD_DEBUG输出为[robin.7.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.7.txt)
 
 ```
 [root@node1 0004]# LD_DEBUG_OUTPUT=robin.txt LD_DEBUG=all ./main dlopen
@@ -822,7 +822,7 @@ opensource v1 print, called by vendor 2
 opensource v1 print, called by vendor 1
 opensource v1 print, called by vendor 2
 ```
-对应的完整的LD_DEBUG输出为[robin.8.txt](https://github.com/lzueclipse/learning/blob/master/c_cpp/0004/robin.8.txt)
+对应的完整的LD_DEBUG输出为[robin.8.txt](https://github.com/robinwan/learning/blob/master/c_cpp/0004/robin.8.txt)
 
 ##5. 结论
 1)对于不同版本的libopensource.so.xxx共享库，两个版本的共享库都会被查找到，但有先后顺序；最终绑定的"opensource_print"符号，是在先被查找到的共享库里的。
